@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long i64;
+
+void PreCalculation(void) {}
+
+#define MultipleCase
+void Solve(int tc) {
+  cout << "Case #" << tc << ": ";
+  int n;
+  cin >> n;
+  vector<pair<int, int>> a(n);
+  for (auto& [x, y] : a) {
+    cin >> x >> y;
+  }
+  double l = 0.00000001, r = 1e7;
+  double eps = 1e-7;
+  bool valid = false;
+  while (r - l >= eps) {
+    double m = (l + r) / 2.0;
+    // cout << (int)m << '\n';
+    bool ok1 = true, ok2 = true;
+    for (int i = 0; i < n; ++i) {
+      double t = (i + 1) / m;
+      if (t - a[i].second > eps) {
+        ok1 = false;
+        break;
+      }
+      if (t - a[i].first < eps) {
+        ok2 = false;
+        break;
+      }
+    }
+    if (ok1 && ok2) valid = true;
+    if (ok1) r = m;
+    else if (ok2) l = m;
+    else r = m;
+  }
+  if (!valid) return void(cout << -1 << '\n');
+  double ans = (l + r) / 2.0l;
+  cout << fixed << setprecision(6) << (l + r) / 2.0l << '\n';
+}
+
+int main(void) {
+  ios::sync_with_stdio(false);
+  cin.tie(0);
+  PreCalculation();
+  int tt = 1;
+#ifdef MultipleCase
+  cin >> tt;
+#endif
+  for (int tc = 1; tc <= tt; ++tc) {
+    Solve(tc);
+  }
+  return 0;
+}

@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long i64;
+
+const int MX = (int)1e7 + 1;
+bitset<MX> vis(3);  // n + 1
+
+vector<int> GenPrime(int n) {
+  if (n < 2) return {};
+  vector<int> prime(1, 2);
+  for (int i = 4; i <= n; i += 2) vis[i] = 1;
+  for (int i = 3; i <= n; i += 2) {
+    if (vis[i]) continue;
+    prime.push_back(i);
+    if (1ULL * i * i > n) continue;
+    for (int j = i * i; j <= n; j += 2 * i) vis[j] = 1;
+  }
+  return prime;
+}
+
+auto prime = GenPrime(MX - 1);
+vector<int> dp(MX);
+
+void PreCalculation(void) {
+  dp[5] = 2;
+  for (int i = 6; i < MX; ++i) {
+    dp[i] = dp[i - 1];
+    if (!vis[i] && !vis[i - 2]) ++dp[i];
+  }
+}
+
+#define MultipleCase
+void Solve(int tc) {
+  cout << "Case #" << tc << ": ";
+  int n;
+  cin >> n;
+  cout << dp[n] << '\n';
+}
+
+int main(void) {
+  ios::sync_with_stdio(false);
+  cin.tie(0);
+  PreCalculation();
+  int tt = 1;
+#ifdef MultipleCase
+  cin >> tt;
+#endif
+  for (int tc = 1; tc <= tt; ++tc) {
+    Solve(tc);
+  }
+  return 0;
+}
