@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build and run",
+      "type": "shell",
+      "command": "g++.exe -std=c++17 \"${file}\" -o \"${fileBasenameNoExtension}.exe\" && \"./${fileBasenameNoExtension}.exe\"<_input.txt>_output.txt",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
