@@ -5,9 +5,18 @@ typedef long long i64;
 
 void PreCalculation(void) {}
 
-// #define MultipleCase
+#define MultipleCase
 void Solve(int tc) {
-  
+  cout << "Case " << tc << ": ";
+  int n, k;
+  cin >> n >> k;
+  i64 ans = 0;
+  while (n--) {
+    int x, y;
+    cin >> x >> y;
+    ans += (k / x);
+  }
+  cout << ans << '\n';
 }
 
 int main(void) {
